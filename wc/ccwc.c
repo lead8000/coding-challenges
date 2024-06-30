@@ -1,5 +1,36 @@
 #include <stdio.h>
 #include <string.h>
+#include <wctype.h>
+
+// #FIX this method doesn't count well the amount of words in images 
+long countWords(const char *filename) {
+    FILE *file = fopen(filename, "r"); // Open the file in read mode
+    if (file == NULL) {
+        perror("Failed to open file");
+        return -1;
+    }
+
+    long amountWords = 0;
+    int thereIsWord = 0;
+    wint_t ch; // Variable to store each character read from the file
+
+    // count all words between white spaces
+    while((ch = fgetc(file)) != EOF) {
+        // check if wide character is whitespace - ' ', \n, \t, \r, etc.
+        if (iswspace(ch) && thereIsWord) {
+            amountWords++;
+            thereIsWord = 0;
+        }
+        else if (!iswspace(ch))  {   
+            thereIsWord = 1;
+        }
+    }
+
+    // at the end of the file there is a word 
+    if (thereIsWord) amountWords++;
+
+    return amountWords;
+}
 
 int countLines(const char *filename) {
     FILE *file = fopen(filename, "r"); // Open the file in read mode
@@ -9,7 +40,7 @@ int countLines(const char *filename) {
     }
 
     int amountLines = 0;
-    int ch; // Variable to store each character read from the file
+    wint_t ch; // Variable to store each character read from the file
 
     while ((ch = fgetc(file)) != EOF) {
         if (ch == '\n') {
@@ -58,6 +89,9 @@ int main(int argc, char *argv[]) {
     }
     else if (!strcmp(argv[1], "-l")) {
         result = (long)countLines(argv[2]);
+    }
+    else if (!strcmp(argv[1], "-w")) {
+        result = countWords(argv[2]);
     }
     else {
         perror("The [OPTION] passed was wrong");
