@@ -12,4 +12,6 @@ This coding challenge is about building your own version of the Unix command lin
 - [ ] **Step Five**: Support the default option (no options provided), which is equivalent to the `-c`, `-l`, and `-w` options.
 - [ ] **The Final Step**: Support reading from standard input if no filename is specified.
 
-                You can also find more detailed information about the challenge at the following link: [https://codingchallenges.fyi/challenges/challenge-wc](https://codingchallenges.fyi/challenges/challenge-wc).
+## More Information
+
+You can also find more detailed information about the challenge at the following link: [https://codingchallenges.fyi/challenges/challenge-wc](https://codingchallenges.fyi/challenges/challenge-wc).
