@@ -1,4 +1,25 @@
 #include <stdio.h>
+#include <string.h>
+
+int countLines(const char *filename) {
+    FILE *file = fopen(filename, "r"); // Open the file in read mode
+    if (file == NULL) {
+        perror("Failed to open file");
+        return -1;
+    }
+
+    int amountLines = 0;
+    int ch; // Variable to store each character read from the file
+
+    while ((ch = fgetc(file)) != EOF) {
+        if (ch == '\n') {
+            amountLines++; // Increment the count for each newline character
+        }
+    }
+
+    fclose(file); // Close the file
+    return amountLines;
+}
 
 long getFileSize(const char *filename) {
     FILE *file = fopen(filename, "rb"); // Open the file in binary mode
@@ -25,14 +46,26 @@ long getFileSize(const char *filename) {
 }
 
 int main(int argc, char *argv[]) {
-    if (argc != 2) {
-        fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
+    if (argc != 3) {
+        fprintf(stderr, "Usage: %s [OPTION] <filename>\n", argv[0]);
         return 1;
     }
-    
-    long fileSize = getFileSize(argv[1]);
-    if (fileSize != -1) {
-        printf("%ld %s\n", fileSize, argv[1]);
+
+    long result;
+
+    if (!strcmp(argv[1], "-c")) {
+        result = getFileSize(argv[2]);
+    }
+    else if (!strcmp(argv[1], "-l")) {
+        result = (long)countLines(argv[2]);
+    }
+    else {
+        perror("The [OPTION] passed was wrong");
+        result = -1;
+    }
+
+    if (result != -1) {
+        printf("%ld %s\n", result, argv[2]);
     }
 
     return 0;
