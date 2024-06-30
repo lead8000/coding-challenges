@@ -4,8 +4,8 @@ This coding challenge is about building your own version of the Unix command lin
 
 ## Challenge Steps
 
-- [ ] **Step Zero**: Set up your environment, download this text, and save it as `test.txt`.
-- [ ] **Step One**: Write a simple version of `wc` called `ccwc` that takes the `-c` option and outputs the number of bytes in a file.
+- [X] **Step Zero**: Set up your environment, download this text, and save it as `test.txt`.
+- [X] **Step One**: Write a simple version of `wc` called `ccwc` that takes the `-c` option and outputs the number of bytes in a file.
 - [ ] **Step Two**: Support the command line option `-l` that outputs the number of lines in a file.
 - [ ] **Step Three**: Support the command line option `-w` that outputs the number of words in a file.
 - [ ] **Step Four**: Support the command line option `-m` that outputs the number of characters in a file.
